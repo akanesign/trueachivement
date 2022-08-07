@@ -1,3 +1,12 @@
+<div align="center">
+  <h1>TrueAchievements without hiding</h1>
+</div>
+
+## Description
+View the details of the Secret Achievements of Trueachivements.<br>
+This will free you from the cumbersome mouse operation.<br>
+Also, by translating the English content into Japanese, you will be able to enjoy a comfortable game life!<br>
+
 ## Installation
 To use this script, you need a userscript manager.<br>
 This script works in Google Chrome
