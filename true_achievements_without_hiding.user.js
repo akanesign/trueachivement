@@ -1,0 +1,64 @@
+// ==UserScript==
+// @name         TrueAchievements without hiding
+// @version      0.1
+// @description  ARE YOU AN ACHIEVEMENT WHORE?
+// @author       akane_sign
+// @match        https://www.trueachievements.com/*
+// @require      https://code.jquery.com/jquery-3.5.1.min.js
+// ==/UserScript==
+
+(function() {
+  $(document).ready(function(){
+    $("li[class$='nw']").filter(
+      function () {
+        if ( $(this).data('secret') ) {
+          $(this).find('.title').css('background-color','orange');
+          $(this).addClass('show');
+        }
+      }
+    )
+
+    var skipdiv = document.querySelector(".skiptranslate");
+
+    if(skipdiv == null) {
+        var transfunc = function() {
+            var lang = document.getElementsByTagName("html")[0].lang;
+            if(lang.length == 0) {
+                lang = "en";
+            }
+
+            new google.translate.TranslateElement({
+                pageLanguage: lang,
+                includedLanguages: "ja",
+                multilanguagePage: true
+            }, "google_translate_element");
+
+            setTimeout(function() {
+                var select = document.querySelector("select.goog-te-combo");
+                select.value = "ja";
+                select.dispatchEvent(new Event("change"));
+
+                setTimeout(function() {
+                    var bar = document.querySelector(".skiptranslate");
+                    bar.style.display = "none";
+                    document.body.style.top = 0;
+                }, 1000);
+            }, 1000);
+        };
+
+        var libele = document.createElement("script");
+        libele.setAttribute("type", "text/javascript");
+        libele.setAttribute("src", "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit");
+        document.body.appendChild(libele);
+
+        var divele = document.body.insertBefore(document.createElement("div"), document.body.firstChild);
+        divele.id = "google_translate_element";
+        divele.style.display = "none";
+
+        var scriptele = document.createElement("script");
+        scriptele.setAttribute("type", "text/javascript");
+        scriptele.text += "function googleTranslateElementInit(){(" + transfunc.toString() + ")();}";
+        document.body.appendChild(scriptele);
+    }
+  });
+})();
