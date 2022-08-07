@@ -9,7 +9,7 @@ Also, by translating the English content into Japanese, you will be able to enjo
 
 ## Installation
 To use this script, you need a userscript manager.<br>
-This script works in Google Chrome.(I have not tried with other web browsers.)
+This script works in Google Chrome.(not tried with other web browsers.)
 
 - Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 
 - Install [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) 
