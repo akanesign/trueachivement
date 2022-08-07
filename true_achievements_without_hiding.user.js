@@ -21,6 +21,15 @@
       }
     )
 
+    $("div[class$='ach-panel nw']").filter(
+      function () {
+        if ( $(this).data('secret') ) {
+          $(this).find('.title').css('background-color','orange');
+          $(this).addClass('show');
+        }
+      }
+    )
+
     var skipdiv = document.querySelector(".skiptranslate");
 
     if(skipdiv == null) {
