@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      0.2
+// @version      0.3
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
-// @author       akane_sign
+// @author       akanesign
 // @match        https://www.trueachievements.com/game/*
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
 // @updateURL    https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js
