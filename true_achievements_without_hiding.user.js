@@ -14,10 +14,11 @@
 
 (function() {
   $(document).ready(function(){
-    $("li[class$='nw']").filter(
+    $("ul[class$='ach-panels']>li").filter(
       function () {
         if ( $(this).data('secret') ) {
           $(this).find('.title').css('background-color','orange');
+          $(this).find('.title').css('color','#230303');
           $(this).addClass('show');
         }
       }
