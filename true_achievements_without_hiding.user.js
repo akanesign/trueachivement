@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      1.0b
+// @version      1.0c
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/game/*
@@ -33,9 +33,11 @@
       }
     )
 
+    var pagetitle = document.title;
+    var pattern = 'achievement';
     var skipdiv = document.querySelector(".skiptranslate");
 
-    if(skipdiv == null) {
+    if( (skipdiv == null) && ( pagetitle.toLowerCase().indexOf(pattern) > -1 ) ) {
         var transfunc = function() {
             var lang = document.getElementsByTagName("html")[0].lang;
             if(lang.length == 0) {
