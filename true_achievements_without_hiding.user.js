@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      1.2
+// @version      1.2a
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/game/*
@@ -27,7 +27,7 @@
         <div>
         <label>
         <i class="fa fa-google fa-fw"></i>
-        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google–|–ó</font></font>
+        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Googleç¿»è¨³</font></font>
         </label>
         <div class="frm-grp frm-tgl">
         <input type="checkbox" id="chkTranslate" name="chkTranslate" ${checked}><label for="chkTranslate"> </label>
