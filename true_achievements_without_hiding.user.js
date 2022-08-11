@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      1.2a
+// @version      1.3
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
-// @match        https://www.trueachievements.com/game/*
+// @match        https://www.trueachievements.com/
 // @match        https://www.trueachievements.com/*/*
-// @match        https://www.trueachievements.com/game/*/achievements
-// @exclude      https://www.trueachievements.com/gamer/*/*
+// @match        https://www.trueachievements.com/*/*/achievements
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
