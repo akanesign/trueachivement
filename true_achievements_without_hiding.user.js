@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      1.4a
+// @version      1.5
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -37,6 +37,21 @@
         GM_setValue( "opt_Translate", $(this).is(':checked') );
       });
     }, 1000);
+  });
+
+  //Mysterious words that even adults don't know
+  $("#nn_bfa_wrapper").ready(function(){
+    $(".lb_holder").remove();
+    $(".pro-upgrade").remove();
+    $(".ad-wrap").remove();
+    $(".nn_player_w").remove();
+    $(".nn-sticky").remove();
+    $("#nn_skinl").remove();
+    $("#nn_skinr").remove();
+    $("#nn_lb2_wrap").remove();
+    $("#nn_bfa_wrapper").remove();
+    $("#primis_playerSekindoSPlayer6301082005443").remove();
+    $("#nn_lb2").remove();
   });
 
   $(document).ready(function(){
