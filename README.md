@@ -7,6 +7,13 @@ View the details of the Secret Achievements of Trueachivements.<br>
 This will free you from the cumbersome mouse operation.<br>
 Also, by translating the English content into Japanese, you will be able to enjoy a comfortable game life!<br>
 
+## Features
+- Automatic display of secret achievements
+  ![](img/secret.png)
+- Japanese translation by Google Translate
+  ![](img/setting.png)
+- Quick Ad block
+
 ## Installation
 To use this script, you need a userscript manager.<br>
 This script works in Google Chrome.(not tried with other web browsers.)
