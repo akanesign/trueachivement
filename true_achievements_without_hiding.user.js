@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      1.8
+// @version      1.9
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -9,33 +9,74 @@
 // @match        https://www.trueachievements.com/*/*/achievements
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @grant        GM.xmlHttpRequest
+// @connect      img.trueachievements.com
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
 // @updateURL    https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js
 // @downloadURL  https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js
 // ==/UserScript==
 
 (function() {
+  var url = location.pathname;
+  var query = location.search;
+
   $("#divTab_Settings").ready(function(){
     setTimeout( function() {
       var opt_Translate = true;
-      var checked = '';
+      var opt_TwitterShare = false;
+      var opt_Imgurl_id = '';
+      var Translate_checked = '';
+      var TwitterShare_checked = '';
+      var share_style= '';
 
       if ( GM_getValue("opt_Translate") != undefined ) opt_Translate = GM_getValue("opt_Translate");
-      if ( opt_Translate ) checked = 'checked';
+      if ( GM_getValue("opt_TwitterShare") != undefined ) opt_TwitterShare = GM_getValue("opt_TwitterShare");
+      if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
+      if ( opt_Translate ) Translate_checked = 'checked';
+      if ( opt_TwitterShare ) TwitterShare_checked = 'checked';
+      if ( !opt_Imgurl_id ) share_style = "style='background-color:red;'";
 
       $("#divTab_Settings").prepend(`
         <div>
         <label>
         <i class="fa fa-google fa-fw"></i>
-        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google翻訳</font></font>
+        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google Translate</font></font>
         </label>
-        <div class="frm-grp frm-tgl">
-        <input type="checkbox" id="chkTranslate" name="chkTranslate" ${checked}><label for="chkTranslate"> </label>
+        <div class="frm-grp frm-tgl" >
+        <input type="checkbox" id="chkTranslate" name="chkTranslate" ${Translate_checked}><label for="chkTranslate"> </label>
         </div>
+        </div>
+        <div style='border-bottom:none;padding-bottom:0px;'>
+        <label>
+        <i class="fa fa-share-alt fa-fw"></i>
+        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter share button to achievement completion post.</font></font><br>
+        </label>
+        <div class="frm-grp frm-tgl" style='border-bottom:none;padding-bottom:0px;'>
+        <input type="checkbox" id="chkTwitterShare" name="chkTwitterShare" ${TwitterShare_checked}><label for="chkTwitterShare"> </label>
+        </div>
+        </div>
+        <div style='border-bottom:none;padding-bottom:0px;'>
+        Client-ID:<input type="text" id="opt_Imgurl_id" value="${opt_Imgurl_id}" style="max-width:130px;padding:0;line-height:28px;height:30px;font-size:90%"><a id="set_imgurl" ${share_style}">設定</a>
+        </div>
+        <div>
+        <a href='https://imgur.com/register?redirect=%2F' target="_blank">imgurl registration required.</a>
         </div>
       `);
       $(document).on('change', '#chkTranslate', function(){
         GM_setValue( "opt_Translate", $(this).is(':checked') );
+      });
+      $(document).on('change', '#chkTwitterShare', function(){
+        GM_setValue( "opt_TwitterShare", $(this).is(':checked') );
+      });
+      $(document).on('click', '#set_imgurl', function(){
+        GM_setValue( "opt_Imgurl_id", $("#opt_Imgurl_id").val() );
+
+        if( $("#opt_Imgurl_id").val() ) {
+          $("#set_imgurl").css('cssText','background-color: #4299e1;');
+        } else {
+          $("#set_imgurl").css('cssText','background-color: red;');
+        }
+        location.reload();
       });
     }, 1000);
   });
@@ -77,10 +118,52 @@
       }
     )
 
+    if( query.toLowerCase().indexOf('gamerid=') != -1 ) {
+      var max_gamesocre = $("div[title='Maximum Gamerscore']").first().text();
+      var my_gamescore = $("div[title='Gamerscore Earned']").text();
+      var game_title = $("div[class=info]>h2>a").first().text();
+
+      var opt_TwitterShare = false;
+      var opt_Imgurl_id = '';
+      if ( GM_getValue("opt_TwitterShare") != undefined ) opt_TwitterShare = GM_getValue("opt_TwitterShare");
+      if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
+
+      if ( opt_TwitterShare && opt_Imgurl_id && ( max_gamesocre == my_gamescore ) ) {
+        $("a[class='twitter']").attr('title', '実績をコンプリートしたよ！');
+        $("a[class='twitter']").css('cssText','background-color: orange; color: #4caddb !important;');
+        $("a[class='twitter']").removeAttr("onclick");
+
+        $("a[class='twitter']").on("click", function() {
+          $(this).prop('disabled',true);
+          var achivement_image = $("meta[name ='twitter:image']").attr('content');
+          var achivement_image_url = '';
+          var base64Data = '';
+          toBase64( achivement_image, function( base64Data ){
+            $.ajax({
+              url: 'https://api.imgur.com/3/image',
+              method: 'POST',
+              headers: {
+                "Authorization": 'Client-ID ' + opt_Imgurl_id
+              },
+             data: {
+               image: base64Data,
+               type: 'base64'
+             }
+           }).done(function(resp){
+             achivement_image_url = 'https://imgur.com/' + resp.data.id;
+             window.open( 'https://twitter.com/intent/tweet?text=' + game_title + 'の実績をコンプリートしたよ！&url=' + encodeURI( achivement_image_url ), '_blank' );
+           }).fail(function(error){
+             window.open( 'https://twitter.com/intent/tweet?text=' + game_title + 'の実績をコンプリートしたよ！', '_blank' );
+             $(this).prop('disabled',false);
+           });
+         });
+        });
+      }
+    }
+
     var opt_Translate = true;
     if ( GM_getValue("opt_Translate") != undefined ) opt_Translate = GM_getValue("opt_Translate");
 
-    var url = location.pathname;
     var skipdiv = document.querySelector(".skiptranslate");
 
     if( opt_Translate && ( skipdiv == null ) && ( url.toLowerCase().indexOf('gamer/') == -1 ) && ( url.toLowerCase().indexOf('.aspx') == -1 ) ) {
@@ -125,3 +208,16 @@
     }
   });
 })();
+
+function toBase64(url, callback){
+  GM.xmlHttpRequest({
+    method: "GET",
+    url: url,
+    headers: { referer: url, origin: url },
+    withCredentials: true,
+    responseType: 'blob',
+    onload: function(response) {
+      callback( btoa( response.responseText ) );
+    }
+  });
+}
