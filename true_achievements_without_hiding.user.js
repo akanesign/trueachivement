@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      2.1
+// @version      2.2
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -96,6 +96,7 @@
     $("#primis_playerSekindoSPlayer6301082005443").remove();
     $("#nn_lb2").remove();
     $("#nn_lb3").remove();
+    $("#nn_lb4").remove();
   });
 
   $(document).ready(function(){
