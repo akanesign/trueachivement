@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      2.4
+// @version      2.5
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -132,7 +132,8 @@
       }
     )
 
-    $("div[class$='ach-panel nw']").filter(
+    //$("div[class$='ach-panel nw']").filter(
+    $("div[class$='ach-panel']").filter(
       function () {
         if ( $(this).data('secret') ) {
           $(this).find('.title').css('background-color','orange');
