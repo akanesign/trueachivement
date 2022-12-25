@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      2.6
+// @version      2.7
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -132,8 +132,17 @@
       }
     )
 
-    //$("div[class$='ach-panel nw']").filter(
     $("div[class$='ach-panel']").filter(
+      function () {
+        if ( $(this).data('secret') ) {
+          $(this).find('.title').css('background-color','orange');
+          $(this).find('.title').css('color','#230303');
+          $(this).addClass('show');
+        }
+      }
+    )
+
+    $("div[class$='ach-panel nw']").filter(
       function () {
         if ( $(this).data('secret') ) {
           $(this).find('.title').css('background-color','orange');
