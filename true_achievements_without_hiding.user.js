@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      2.7
+// @version      2.8
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -163,11 +163,11 @@
       if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
 
       if ( opt_TwitterShare && opt_Imgurl_id && ( max_gamesocre == my_gamescore ) ) {
-        $("a[class='twitter']").attr('title', '実績をコンプリートしたよ！');
-        $("a[class='twitter']").css('cssText','background-color: orange; color: #4caddb !important;');
-        $("a[class='twitter']").removeAttr("onclick");
+        $("span[class='twitter']").attr('title', '実績をコンプリートしたよ！');
+        $("span[class='twitter']").css('cssText','background-color: orange; color: #4caddb !important;');
+        $("span[class='twitter']").removeAttr("onclick");
 
-        $("a[class='twitter']").on("click", function() {
+        $("span[class='twitter']").on("click", function() {
           $(this).prop('disabled',true);
           var achivement_image = $("meta[name ='twitter:image']").attr('content');
           var achivement_image_url = '';
@@ -175,6 +175,7 @@
           toBase64( achivement_image, function( base64Data ){
             $.ajax({
               url: 'https://api.imgur.com/3/image',
+              async: false,
               method: 'POST',
               headers: {
                 "Authorization": 'Client-ID ' + opt_Imgurl_id
