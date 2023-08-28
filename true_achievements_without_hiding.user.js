@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      2.9
+// @version      3.0
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -203,29 +203,14 @@
 
     if( opt_Translate && ( skipdiv == null ) && ( url.toLowerCase().indexOf('game.aspx') != -1 || ( url.toLowerCase().indexOf('gamer/') == -1 ) && ( url.toLowerCase().indexOf('.aspx') == -1 ) ) ) {
         var transfunc = function() {
-            var lang = document.getElementsByTagName("html")[0].lang;
-            if(lang.length == 0) {
-                lang = "en";
-            }
 
             new google.translate.TranslateElement({
-                pageLanguage: lang,
+                pageLanguage: "ja",
                 includedLanguages: "ja",
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 multilanguagePage: true
             }, "google_translate_element");
 
-            setTimeout(function() {
-                var select = document.querySelector("select.goog-te-combo");
-                select.value = "ja";
-                select.dispatchEvent(new Event("change"));
-
-                setTimeout(function() {
-                    var bar = document.querySelector(".skiptranslate");
-                    //bar.style.display = "none";
-                    document.body.style.top = 0;
-                }, 1000);
-            }, 1000);
         };
 
         var libele = document.createElement("script");
