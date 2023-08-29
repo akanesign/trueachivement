@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.0
+// @version      3.1
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -205,7 +205,7 @@
         var transfunc = function() {
 
             new google.translate.TranslateElement({
-                pageLanguage: "ja",
+                pageLanguage: "en",
                 includedLanguages: "ja",
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 multilanguagePage: true
