@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.1
+// @version      3.2
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -164,8 +164,10 @@
 
       if ( opt_TwitterShare && opt_Imgurl_id && ( max_gamesocre == my_gamescore ) ) {
         $("span[class='twitter']").attr('title', '実績をコンプリートしたよ！');
-        $("span[class='twitter']").css('cssText','background-color: orange; color: #4caddb !important;');
+        $("span[class='twitter']").css('cssText','background-color: green; !important;');
         $("span[class='twitter']").removeAttr("onclick");
+        $("span[class='twitter']>i").removeClass('fa-twitter');
+        $("span[class='twitter']>i").addClass('fa-trophy');
 
         $("span[class='twitter']").on("click", function() {
           $(this).prop('disabled',true);
