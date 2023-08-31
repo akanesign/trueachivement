@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.3
+// @version      3.4
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -14,6 +14,9 @@
 // @require      https://code.jquery.com/jquery-3.5.1.min.js
 // @updateURL    https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js
 // @downloadURL  https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js
+// @resource     GGTT https://github.com/akanesign/trueachivement/raw/main/css/google_tt.css
+// @grant        GM_addStyle
+// @grant        GM_getResourceText
 // ==/UserScript==
 
 (function() {
@@ -122,6 +125,9 @@
   //
 
   $(document).ready(function(){
+    // google translate highlight
+    GM_addStyle(GM_getResourceText("GGTT"));
+
     $("ul[class$='ach-panels']>li").filter(
       function () {
         if ( $(this).data('secret') ) {
