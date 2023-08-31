@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.2
+// @version      3.3
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -212,6 +212,9 @@
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 multilanguagePage: true
             }, "google_translate_element");
+
+            var removePopup = document.getElementById('goog-gt-tt');
+            removePopup.parentNode.removeChild(removePopup);
 
         };
 
