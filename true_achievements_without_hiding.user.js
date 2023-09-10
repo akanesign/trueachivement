@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.7
+// @version      3.8
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -229,18 +229,6 @@
 
             var removePopup = document.getElementById('goog-gt-tt');
             removePopup.parentNode.removeChild(removePopup);
-
-            setTimeout(function() {
-                //var select = document.querySelector("select.goog-te-combo");
-                //select.value = "ja";
-                //select.dispatchEvent(new Event("change"));
-
-                setTimeout(function() {
-                    var bar = document.querySelector(".skiptranslate");
-                    //bar.style.display = "none";
-                    document.body.style.top = 0;
-                }, 1000);
-            }, 1000);
 
         };
 
