@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievements without hiding
-// @version      3.6
+// @version      3.7
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -89,6 +89,7 @@
     $(".lb_holder").remove();
     $(".pro-upgrade").remove();
     $(".ad-wrap").remove();
+    $(".nn_player").remove();
     $(".nn_player_w").remove();
     $(".nn-sticky").remove();
     $("#nn_mobile_lb1_wrap").remove();
@@ -104,12 +105,14 @@
     $(".ad-center").remove();
     $("#aniBox").remove();
     $(".AV64d0c3441477ebeb0e037ef4").remove();
+    $("#ad_unit").remove();
   });
 
   $(window).on('load', function(){
     $(".lb_holder").remove();
     $(".pro-upgrade").remove();
     $(".ad-wrap").remove();
+    $(".nn_player").remove();
     $(".nn_player_w").remove();
     $(".nn-sticky").remove();
     $("#nn_mobile_lb1_wrap").remove();
@@ -125,6 +128,7 @@
     $(".ad-center").remove();
     $("#aniBox").remove();
     $(".AV64d0c3441477ebeb0e037ef4").remove();
+    $("#ad_unit").remove();
   });
   //
 
@@ -227,9 +231,9 @@
             removePopup.parentNode.removeChild(removePopup);
 
             setTimeout(function() {
-                var select = document.querySelector("select.goog-te-combo");
-                select.value = "ja";
-                select.dispatchEvent(new Event("change"));
+                //var select = document.querySelector("select.goog-te-combo");
+                //select.value = "ja";
+                //select.dispatchEvent(new Event("change"));
 
                 setTimeout(function() {
                     var bar = document.querySelector(".skiptranslate");
@@ -242,7 +246,7 @@
 
         var libele = document.createElement("script");
         libele.setAttribute("type", "text/javascript");
-        libele.setAttribute("src", "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit");
+        libele.setAttribute("src", "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&" + ( new Date() ).getTime() );
         document.body.appendChild(libele);
 
         var divele = document.body.insertBefore(document.createElement("div"), document.body.firstChild);
