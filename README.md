@@ -1,5 +1,6 @@
 <div align="center">
-  <h1>TrueAchievements without hiding</h1>
+  <h1><s>TrueAchievements without hiding</s></h1>
+  <h1>TrueAchievement Revealed</h1>
 </div>
 
 ## Description
@@ -19,6 +20,6 @@ To use this script, you need a userscript manager.<br>
 This script works in Google Chrome.(not tried with other web browsers.)
 
 - Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) 
-- Install [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) 
+- <s>Install [Google Translate](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb) </s>
 - Then, click on [this link](https://github.com/akanesign/trueachivement/raw/main/true_achievements_without_hiding.user.js) and a new tab should open, prompting you with an installation screen.
 - Hit install and you should be good to go!
