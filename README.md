@@ -1,5 +1,6 @@
 <div align="center">
-  <h1>TrueAchievements without hiding</h1>
+  <h1><s>TrueAchievements without hiding</s></h1>
+  <h1>TrueAchievement Revealed</h1>
 </div>
 
 ## Description
