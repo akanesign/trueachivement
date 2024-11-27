@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         TrueAchievements without hiding
-// @version      4.7
+// @name         TrueAchievement Revealed
+// @version      4.8
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
