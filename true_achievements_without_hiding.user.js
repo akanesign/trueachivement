@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      4.8
+// @version      4.9
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -65,7 +65,7 @@
         <div style='border-bottom:none;padding-bottom:0px;'>
         <label>
         <i class="fa fa-share-alt fa-fw"></i>
-        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter share button to achievement completion post.</font></font><br>
+        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter/BlueSky share button to achievement completion post.</font></font><br>
         </label>
         <div class="frm-grp frm-tgl" style='border-bottom:none;padding-bottom:0px;'>
         <input type="checkbox" id="chkTwitterShare" name="chkTwitterShare" ${TwitterShare_checked}><label for="chkTwitterShare"> </label>
@@ -158,7 +158,21 @@
   $(document).ready(function(){
     // google translate highlight
     GM_addStyle(GM_getResourceText("GGTT"));
-
+    GM_addStyle(`
+      .fa-bluesky {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565C.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479c.815 2.736 3.713 3.66 6.383 3.364q.204-.03.415-.056q-.207.033-.415.056c-3.912.58-7.387 2.005-2.83 7.078c5.013 5.19 6.87-1.113 7.823-4.308c.953 3.195 2.05 9.271 7.733 4.308c4.267-4.308 1.172-6.498-2.74-7.078a9 9 0 0 1-.415-.056q.21.026.415.056c2.67.297 5.568-.628 6.383-3.364c.246-.828.624-5.79.624-6.478c0-.69-.139-1.861-.902-2.206c-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8'/%3E%3C/svg%3E");
+        background-color: currentColor;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+      }
+    `);
     $("ul[class$='ach-panels']>li").filter(
       function () {
         if ( $(this).data('secret') ) {
@@ -232,6 +246,48 @@
            });
          });
         });
+
+        $("span[class='email']").attr('title', '実績をコンプリートしたよ！');
+        $("span[class='email']").css('cssText','background-color: green; !important;');
+        $("span[class='email']").removeAttr("onclick");
+        $("span[class='email']>i").removeClass('fa-envelope');
+        $("span[class='email']>i").addClass('fa-bluesky');
+        $("span[class='email']").on("click", function() {
+          $(this).prop('disabled',true);
+          var achivement_image = $("meta[name ='twitter:image']").attr('content');
+          var achivement_image_url = '';
+          var base64Data = '';
+          toBase64( achivement_image, function( base64Data ){
+            $.ajax({
+              url: 'https://api.imgur.com/3/image',
+              async: false,
+              method: 'POST',
+              headers: {
+                "Authorization": 'Client-ID ' + opt_Imgurl_id
+              },
+             data: {
+               image: base64Data,
+               type: 'base64'
+             }
+           }).done(function(resp){
+             achivement_image_url = 'https://imgur.com/' + resp.data.id;
+             window.open( 'https://bsky.app/intent/compose?text=' + game_title + 'の実績をコンプリートしたよ！ ' + encodeURI( achivement_image_url ), '_blank' );
+           }).fail(function(error){
+             window.open( 'https://bsky.app/intent/compose?text=' + game_title + 'の実績をコンプリートしたよ！', '_blank' );
+             $(this).prop('disabled',false);
+           });
+         });
+        });
+      } else {
+          $("span[class='email']").attr('title', 'BlueSkyでシェア');
+          $("span[class='email']").css('cssText','background-color: #1e90ff; !important;');
+          $("span[class='email']").removeAttr("onclick");
+          $("span[class='email']>i").removeClass('fa-envelope');
+          $("span[class='email']>i").addClass('fa-bluesky');
+          $("span[class='email']").on("click", function() {
+            var sharetext = $("meta[property='og:url']").attr('content');
+            window.open( 'https://bsky.app/intent/compose?text=Check out this game on TrueAchievements ' + encodeURI( sharetext ), '_blank' );
+          });
       }
     }
 
