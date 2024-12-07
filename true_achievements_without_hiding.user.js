@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      4.9
+// @version      5.0
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -29,7 +29,10 @@
       mutations.forEach(function(mutation) {
           $(mutation.addedNodes).each(function() {
               if ( $(this).is("iframe") && !$(this).is("[class*='skiptranslate']") && !$(this).is("[src*='translate.googleapis.com']") ) {
-                  $(this).remove();
+                  var src = $(this).attr('src');
+                  if (!src || !src.includes('youtube.com')) {
+                      $(this).remove();
+                  }
               }
           });
       });
