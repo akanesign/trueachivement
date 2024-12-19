@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      5.0
+// @version      5.1
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -40,123 +40,69 @@
   observer.observe(document.body, { childList: true, subtree: true });
 
   $("#divTab_Settings").ready(function(){
-    setTimeout( function() {
-      var opt_Translate = true;
-      var opt_TwitterShare = false;
-      var opt_Imgurl_id = '';
-      var Translate_checked = '';
-      var TwitterShare_checked = '';
-      var share_style= '';
 
-      if ( GM_getValue("opt_Translate") != undefined ) opt_Translate = GM_getValue("opt_Translate");
-      if ( GM_getValue("opt_TwitterShare") != undefined ) opt_TwitterShare = GM_getValue("opt_TwitterShare");
-      if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
-      if ( opt_Translate ) Translate_checked = 'checked';
-      if ( opt_TwitterShare ) TwitterShare_checked = 'checked';
-      if ( !opt_Imgurl_id ) share_style = "style='background-color:red;'";
+    const checkElement = setInterval(function () {
+      if ($("#divTab_Settings").length > 0) {
+        var opt_Translate = true;
+        var opt_TwitterShare = false;
+        var opt_Imgurl_id = '';
+        var Translate_checked = '';
+        var TwitterShare_checked = '';
+        var share_style= '';
 
-      $("#divTab_Settings").prepend(`
-        <div>
-        <label>
-        <i class="fa fa-google fa-fw"></i>
-        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google Translate</font></font>
-        </label>
-        <div class="frm-grp frm-tgl" >
-        <input type="checkbox" id="chkTranslate" name="chkTranslate" ${Translate_checked}><label for="chkTranslate"> </label>
-        </div>
-        </div>
-        <div style='border-bottom:none;padding-bottom:0px;'>
-        <label>
-        <i class="fa fa-share-alt fa-fw"></i>
-        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter/BlueSky share button to achievement completion post.</font></font><br>
-        </label>
-        <div class="frm-grp frm-tgl" style='border-bottom:none;padding-bottom:0px;'>
-        <input type="checkbox" id="chkTwitterShare" name="chkTwitterShare" ${TwitterShare_checked}><label for="chkTwitterShare"> </label>
-        </div>
-        </div>
-        <div style='border-bottom:none;padding-bottom:0px;'>
-        Client-ID:<input type="text" id="opt_Imgurl_id" value="${opt_Imgurl_id}" style="max-width:130px;padding:0;line-height:28px;height:30px;font-size:90%"><a id="set_imgurl" ${share_style}">設定</a>
-        </div>
-        <div>
-        <a href='https://imgur.com/register?redirect=%2F' target="_blank">imgurl registration required.</a>
-        </div>
-      `);
-      $(document).on('change', '#chkTranslate', function(){
-        GM_setValue( "opt_Translate", $(this).is(':checked') );
-      });
-      $(document).on('change', '#chkTwitterShare', function(){
-        GM_setValue( "opt_TwitterShare", $(this).is(':checked') );
-      });
-      $(document).on('click', '#set_imgurl', function(){
-        GM_setValue( "opt_Imgurl_id", $("#opt_Imgurl_id").val() );
+        if ( GM_getValue("opt_Translate") != undefined ) opt_Translate = GM_getValue("opt_Translate");
+          if ( GM_getValue("opt_TwitterShare") != undefined ) opt_TwitterShare = GM_getValue("opt_TwitterShare");
+          if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
+          if ( opt_Translate ) Translate_checked = 'checked';
+          if ( opt_TwitterShare ) TwitterShare_checked = 'checked';
+          if ( !opt_Imgurl_id ) share_style = "style='background-color:red;'";
 
-        if( $("#opt_Imgurl_id").val() ) {
-          $("#set_imgurl").css('cssText','background-color: #4299e1;');
-        } else {
-          $("#set_imgurl").css('cssText','background-color: red;');
-        }
-        location.reload();
-      });
+          $("#divTab_Settings").prepend(`
+            <div>
+            <label>
+            <i class="fa fa-google fa-fw"></i>
+            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google Translate</font></font>
+            </label>
+            <div class="frm-grp frm-tgl" >
+            <input type="checkbox" id="chkTranslate" name="chkTranslate" ${Translate_checked}><label for="chkTranslate"> </label>
+            </div>
+            </div>
+            <div style='border-bottom:none;padding-bottom:0px;'>
+            <label>
+            <i class="fa fa-share-alt fa-fw"></i>
+            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter/BlueSky share button to achievement completion post.</font></font><br>
+            </label>
+            <div class="frm-grp frm-tgl" style='border-bottom:none;padding-bottom:0px;'>
+            <input type="checkbox" id="chkTwitterShare" name="chkTwitterShare" ${TwitterShare_checked}><label for="chkTwitterShare"> </label>
+            </div>
+            </div>
+            <div style='border-bottom:none;padding-bottom:0px;'>
+            Client-ID:<input type="text" id="opt_Imgurl_id" value="${opt_Imgurl_id}" style="max-width:130px;padding:0;line-height:28px;height:30px;font-size:90%"><a id="set_imgurl" ${share_style}">設定</a>
+            </div>
+            <div>
+            <a href='https://imgur.com/register?redirect=%2F' target="_blank">imgurl registration required.</a>
+            </div>
+          `);
+          $(document).on('change', '#chkTranslate', function(){
+            GM_setValue( "opt_Translate", $(this).is(':checked') );
+          });
+          $(document).on('change', '#chkTwitterShare', function(){
+            GM_setValue( "opt_TwitterShare", $(this).is(':checked') );
+          });
+          $(document).on('click', '#set_imgurl', function(){
+            GM_setValue( "opt_Imgurl_id", $("#opt_Imgurl_id").val() );
+
+            if( $("#opt_Imgurl_id").val() ) {
+              $("#set_imgurl").css('cssText','background-color: #4299e1;');
+            } else {
+              $("#set_imgurl").css('cssText','background-color: red;');
+            }
+            location.reload();
+        });
+        clearInterval(checkElement);
+      }
     }, 1000);
   });
-
-  //Mysterious words that even adults don't know
-  $("#nn_bfa_wrapper").ready(function(){
-    $(".lb_holder").remove();
-    $(".pro-upgrade").remove();
-    $(".ad-wrap").remove();
-    $(".nn_player").remove();
-    $(".nn_player_w").remove();
-    $(".nn-sticky").remove();
-    $("#nn_mobile_lb1_wrap").remove();
-    $("#nn_skinl").remove();
-    $("#nn_skinr").remove();
-    $("#nn_lb2_wrap").remove();
-    $("#nn_bfa_wrapper").remove();
-    $("#primis_playerSekindoSPlayer6301082005443").remove();
-    $("#nn_lb2").remove();
-    $("#nn_lb3").remove();
-    $("#nn_lb4").remove();
-    $("#nn_lb5").remove();
-    $(".ad-center").remove();
-    $("#aniBox").remove();
-    $(".AV64d0c3441477ebeb0e037ef4").remove();
-    $("#ad_unit").remove();
-    $(".gh-btn .gh").remove();
-    $("#ads_4283351906").remove();
-    $('.avp-player-ui').children().contents().unwrap();
-    $('.avp-body .avp-shadow').remove();
-    $('#nn_mpu2').remove();
-  });
-
-  $(window).on('load', function(){
-    $(".lb_holder").remove();
-    $(".pro-upgrade").remove();
-    $(".ad-wrap").remove();
-    $(".nn_player").remove();
-    $(".nn_player_w").remove();
-    $(".nn-sticky").remove();
-    $("#nn_mobile_lb1_wrap").remove();
-    $("#nn_skinl").remove();
-    $("#nn_skinr").remove();
-    $("#nn_lb2_wrap").remove();
-    $("#nn_bfa_wrapper").remove();
-    $("#primis_playerSekindoSPlayer6301082005443").remove();
-    $("#nn_lb2").remove();
-    $("#nn_lb3").remove();
-    $("#nn_lb4").remove();
-    $("#nn_lb5").remove();
-    $(".ad-center").remove();
-    $("#aniBox").remove();
-    $(".AV64d0c3441477ebeb0e037ef4").remove();
-    $("#ad_unit").remove();
-    $(".gh-btn .gh").remove();
-    $("#ads_4283351906").remove();
-    $('.avp-player-ui').children().contents().unwrap();
-    $('.avp-body .avp-shadow').remove();
-    $('#nn_mpu2').remove();
-  });
-  //
 
   $(document).ready(function(){
     // google translate highlight
