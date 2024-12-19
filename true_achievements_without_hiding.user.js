@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      5.1
+// @version      5.2
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -103,6 +103,64 @@
       }
     }, 1000);
   });
+
+  //Mysterious words that even adults don't know
+  $("#nn_bfa_wrapper").ready(function(){
+    $(".lb_holder").remove();
+    $(".pro-upgrade").remove();
+    $(".ad-wrap").remove();
+    $(".nn_player").remove();
+    $(".nn_player_w").remove();
+    $(".nn-sticky").remove();
+    $("#nn_mobile_lb1_wrap").remove();
+    $("#nn_skinl").remove();
+    $("#nn_skinr").remove();
+    $("#nn_lb2_wrap").remove();
+    $("#nn_bfa_wrapper").remove();
+    $("#primis_playerSekindoSPlayer6301082005443").remove();
+    $("#nn_lb2").remove();
+    $("#nn_lb3").remove();
+    $("#nn_lb4").remove();
+    $("#nn_lb5").remove();
+    $(".ad-center").remove();
+    $("#aniBox").remove();
+    $(".AV64d0c3441477ebeb0e037ef4").remove();
+    $("#ad_unit").remove();
+    $(".gh-btn .gh").remove();
+    $("#ads_4283351906").remove();
+    $('.avp-player-ui').children().contents().unwrap();
+    $('.avp-body .avp-shadow').remove();
+    $('#nn_mpu2').remove();
+  });
+
+  $(window).on('load', function(){
+    $(".lb_holder").remove();
+    $(".pro-upgrade").remove();
+    $(".ad-wrap").remove();
+    $(".nn_player").remove();
+    $(".nn_player_w").remove();
+    $(".nn-sticky").remove();
+    $("#nn_mobile_lb1_wrap").remove();
+    $("#nn_skinl").remove();
+    $("#nn_skinr").remove();
+    $("#nn_lb2_wrap").remove();
+    $("#nn_bfa_wrapper").remove();
+    $("#primis_playerSekindoSPlayer6301082005443").remove();
+    $("#nn_lb2").remove();
+    $("#nn_lb3").remove();
+    $("#nn_lb4").remove();
+    $("#nn_lb5").remove();
+    $(".ad-center").remove();
+    $("#aniBox").remove();
+    $(".AV64d0c3441477ebeb0e037ef4").remove();
+    $("#ad_unit").remove();
+    $(".gh-btn .gh").remove();
+    $("#ads_4283351906").remove();
+    $('.avp-player-ui').children().contents().unwrap();
+    $('.avp-body .avp-shadow').remove();
+    $('#nn_mpu2').remove();
+  });
+  //
 
   $(document).ready(function(){
     // google translate highlight
