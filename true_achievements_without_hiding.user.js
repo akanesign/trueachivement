@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      5.2
+// @version      5.3
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -254,12 +254,12 @@
          });
         });
 
-        $("span[class='email']").attr('title', '実績をコンプリートしたよ！');
-        $("span[class='email']").css('cssText','background-color: green; !important;');
-        $("span[class='email']").removeAttr("onclick");
-        $("span[class='email']>i").removeClass('fa-envelope');
-        $("span[class='email']>i").addClass('fa-bluesky');
-        $("span[class='email']").on("click", function() {
+        $("span[class='bluesky']").attr('title', '実績をコンプリートしたよ！');
+        $("span[class='bluesky']").css('cssText','background-color: green; !important;');
+        $("span[class='bluesky']").removeAttr("onclick");
+        $("span[class='bluesky']>i").removeClass('fa-envelope');
+        $("span[class='bluesky']>i").addClass('fa-bluesky');
+        $("span[class='bluesky']").on("click", function() {
           $(this).prop('disabled',true);
           var achivement_image = $("meta[name ='twitter:image']").attr('content');
           var achivement_image_url = '';
@@ -286,12 +286,12 @@
          });
         });
       } else {
-          $("span[class='email']").attr('title', 'BlueSkyでシェア');
-          $("span[class='email']").css('cssText','background-color: #1e90ff; !important;');
-          $("span[class='email']").removeAttr("onclick");
-          $("span[class='email']>i").removeClass('fa-envelope');
-          $("span[class='email']>i").addClass('fa-bluesky');
-          $("span[class='email']").on("click", function() {
+          $("span[class='bluesky']").attr('title', 'BlueSkyでシェア');
+          $("span[class='bluesky']").css('cssText','background-color: #1e90ff; !important;');
+          $("span[class='bluesky']").removeAttr("onclick");
+          $("span[class='bluesky']>i").removeClass('fa-envelope');
+          $("span[class='bluesky']>i").addClass('fa-bluesky');
+          $("span[class='bluesky']").on("click", function() {
             var sharetext = $("meta[property='og:url']").attr('content');
             window.open( 'https://bsky.app/intent/compose?text=Check out this game on TrueAchievements ' + encodeURI( sharetext ), '_blank' );
           });
