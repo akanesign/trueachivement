@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      5.5
+// @version      5.6
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -63,6 +63,7 @@
               $('#nn_mpu2').remove();
               $('#mpu-1').remove();
               $('#mpu-2').remove();
+              $('#ta-ab-overlay').remove();
           });
       });
   });
