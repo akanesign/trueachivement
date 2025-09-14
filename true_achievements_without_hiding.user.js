@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         TrueAchievement Revealed
-// @version      5.6
+// @version      5.7
 // @description  ARE YOU AN ACHIEVEMENT WHORE?
 // @author       akanesign
 // @match        https://www.trueachievements.com/
@@ -64,6 +64,7 @@
               $('#mpu-1').remove();
               $('#mpu-2').remove();
               $('#ta-ab-overlay').remove();
+              $(".dyn-lb").remove();
           });
       });
   });
@@ -97,40 +98,12 @@
             <input type="checkbox" id="chkTranslate" name="chkTranslate" ${Translate_checked}><label for="chkTranslate"> </label>
             </div>
             </div>
-            <div style='border-bottom:none;padding-bottom:0px;'>
-            <label>
-            <i class="fa fa-share-alt fa-fw"></i>
-            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Change Twitter/BlueSky share button to achievement completion post.</font></font><br>
-            </label>
-            <div class="frm-grp frm-tgl" style='border-bottom:none;padding-bottom:0px;'>
-            <input type="checkbox" id="chkTwitterShare" name="chkTwitterShare" ${TwitterShare_checked}><label for="chkTwitterShare"> </label>
-            </div>
-            </div>
-            <div style='border-bottom:none;padding-bottom:0px;'>
-            Client-ID:<input type="text" id="opt_Imgurl_id" value="${opt_Imgurl_id}" style="max-width:130px;padding:0;line-height:28px;height:30px;font-size:90%"><a id="set_imgurl" ${share_style}">設定</a>
-            </div>
-            <div>
-            <a href='https://imgur.com/register?redirect=%2F' target="_blank">imgurl registration required.</a>
-            </div>
           `);
           $(document).on('change', '#chkTranslate', function(){
             GM_setValue( "opt_Translate", $(this).is(':checked') );
           });
-          $(document).on('change', '#chkTwitterShare', function(){
-            GM_setValue( "opt_TwitterShare", $(this).is(':checked') );
-          });
-          $(document).on('click', '#set_imgurl', function(){
-            GM_setValue( "opt_Imgurl_id", $("#opt_Imgurl_id").val() );
-
-            if( $("#opt_Imgurl_id").val() ) {
-              $("#set_imgurl").css('cssText','background-color: #4299e1;');
-            } else {
-              $("#set_imgurl").css('cssText','background-color: red;');
-            }
-            location.reload();
-        });
-        clearInterval(checkElement);
-      }
+         clearInterval(checkElement);
+       }
     }, 1000);
   });
 
@@ -181,94 +154,6 @@
         }
       }
     )
-
-    if( query.toLowerCase().indexOf('gamerid=') != -1 ) {
-      var max_gamesocre = $("div[title='Maximum Gamerscore']").first().text();
-      var my_gamescore = $("div[title='Gamerscore Earned']").text();
-      var game_title = $("div[class=info]>h2>a").first().text();
-
-      var opt_TwitterShare = false;
-      var opt_Imgurl_id = '';
-      if ( GM_getValue("opt_TwitterShare") != undefined ) opt_TwitterShare = GM_getValue("opt_TwitterShare");
-      if ( GM_getValue("opt_Imgurl_id") != undefined ) opt_Imgurl_id = GM_getValue("opt_Imgurl_id");
-
-      if ( opt_TwitterShare && opt_Imgurl_id && ( max_gamesocre == my_gamescore ) ) {
-        $("span[class='twitter']").attr('title', '実績をコンプリートしたよ！');
-        $("span[class='twitter']").css('cssText','background-color: green; !important;');
-        $("span[class='twitter']").removeAttr("onclick");
-        $("span[class='twitter']>i").removeClass('fa-twitter');
-        $("span[class='twitter']>i").addClass('fa-trophy');
-
-        $("span[class='twitter']").on("click", function() {
-          $(this).prop('disabled',true);
-          var achivement_image = $("meta[name ='twitter:image']").attr('content');
-          var achivement_image_url = '';
-          var base64Data = '';
-          toBase64( achivement_image, function( base64Data ){
-            $.ajax({
-              url: 'https://api.imgur.com/3/image',
-              async: false,
-              method: 'POST',
-              headers: {
-                "Authorization": 'Client-ID ' + opt_Imgurl_id
-              },
-             data: {
-               image: base64Data,
-               type: 'base64'
-             }
-           }).done(function(resp){
-             achivement_image_url = 'https://imgur.com/' + resp.data.id;
-             window.open( 'https://twitter.com/intent/tweet?text=' + game_title + 'の実績をコンプリートしたよ！&url=' + encodeURI( achivement_image_url ), '_blank' );
-           }).fail(function(error){
-             window.open( 'https://twitter.com/intent/tweet?text=' + game_title + 'の実績をコンプリートしたよ！', '_blank' );
-             $(this).prop('disabled',false);
-           });
-         });
-        });
-
-        $("span[class='bluesky']").attr('title', '実績をコンプリートしたよ！');
-        $("span[class='bluesky']").css('cssText','background-color: green; !important;');
-        $("span[class='bluesky']").removeAttr("onclick");
-        $("span[class='bluesky']>i").removeClass('fa-envelope');
-        $("span[class='bluesky']>i").addClass('fa-bluesky');
-        $("span[class='bluesky']").on("click", function() {
-          $(this).prop('disabled',true);
-          var achivement_image = $("meta[name ='twitter:image']").attr('content');
-          var achivement_image_url = '';
-          var base64Data = '';
-          toBase64( achivement_image, function( base64Data ){
-            $.ajax({
-              url: 'https://api.imgur.com/3/image',
-              async: false,
-              method: 'POST',
-              headers: {
-                "Authorization": 'Client-ID ' + opt_Imgurl_id
-              },
-             data: {
-               image: base64Data,
-               type: 'base64'
-             }
-           }).done(function(resp){
-             achivement_image_url = 'https://imgur.com/' + resp.data.id;
-             window.open( 'https://bsky.app/intent/compose?text=' + game_title + 'の実績をコンプリートしたよ！ ' + encodeURI( achivement_image_url ), '_blank' );
-           }).fail(function(error){
-             window.open( 'https://bsky.app/intent/compose?text=' + game_title + 'の実績をコンプリートしたよ！', '_blank' );
-             $(this).prop('disabled',false);
-           });
-         });
-        });
-      } else {
-          $("span[class='bluesky']").attr('title', 'BlueSkyでシェア');
-          $("span[class='bluesky']").css('cssText','background-color: #1e90ff; !important;');
-          $("span[class='bluesky']").removeAttr("onclick");
-          $("span[class='bluesky']>i").removeClass('fa-envelope');
-          $("span[class='bluesky']>i").addClass('fa-bluesky');
-          $("span[class='bluesky']").on("click", function() {
-            var sharetext = $("meta[property='og:url']").attr('content');
-            window.open( 'https://bsky.app/intent/compose?text=Check out this game on TrueAchievements ' + encodeURI( sharetext ), '_blank' );
-          });
-      }
-    }
 
     var opt_Translate = true;
     if ( GM_getValue("opt_Translate") != undefined ) opt_Translate = GM_getValue("opt_Translate");
